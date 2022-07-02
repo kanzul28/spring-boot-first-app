@@ -14,8 +14,12 @@ public class UserDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "alamat", columnDefinition="TEXT")
+    private String alamat;
+
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_detail_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 
 }
