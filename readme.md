@@ -1,1 +1,1 @@
-# Project for investree virtual internship
+# Spring boot first app API
