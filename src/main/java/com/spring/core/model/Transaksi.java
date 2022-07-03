@@ -1,5 +1,6 @@
 package com.spring.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 
@@ -15,14 +16,6 @@ public class Transaksi {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    Users users;
-
-    @ManyToOne
-    @JoinColumn(name = "payment_hystory_id")
-    PaymentHistory payment_history;
-
     @Column(name = "tenor",length = 11)
     private int tenor;
 
@@ -34,6 +27,23 @@ public class Transaksi {
 
     @Column(name = "status", nullable = false, length = 45)
     private String status;
+
+    @JsonIgnore
+    @ManyToOne(targetEntity = Users.class, cascade = CascadeType.ALL)
+    private Users users;
+
+//    @ManyToOne
+//    @JoinColumn(name = "payment_hystory_id")
+//    PaymentHistory payment_history;
+
+
+    @JsonIgnore
+    @ManyToOne(targetEntity = PaymentHistory.class, cascade = CascadeType.ALL)
+    private PaymentHistory paymentHistory;
+
+
+
+
 
 
 

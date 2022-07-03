@@ -1,5 +1,6 @@
 package com.spring.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,7 +28,11 @@ public class Users {
     @Column(name = "is_active")
     private boolean is_active;
 
-    @OneToMany(mappedBy = "users")
+//    @OneToMany(mappedBy = "users")
+//    private List<Transaksi> transaksi;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transaksi> transaksi;
 
     @OneToOne(mappedBy = "users")

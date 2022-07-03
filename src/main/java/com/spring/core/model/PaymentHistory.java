@@ -1,6 +1,7 @@
 package com.spring.core.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,8 +27,14 @@ public class PaymentHistory {
     @Column(name = "bukti_pembayaran", nullable = false, length = 45)
     private String bukti_pembayaran;
 
-    @OneToMany(mappedBy = "payment_history")
+    @JsonIgnore
+    @OneToMany(mappedBy = "payment_history", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transaksi> transaksi;
+
+
+
+//    @OneToMany(mappedBy = "payment_history")
+//    private List<Transaksi> transaksi;
 
 
 }
