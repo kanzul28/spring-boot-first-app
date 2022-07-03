@@ -29,7 +29,7 @@ public class TransaksiPaymentImple implements TransaksiService {
 
 
     @Override
-    public Map save(Transaksi transaksi, Long iduser, Long idpayt) {
+    public Map save(Transaksi transaksi, Long idpayt) {
         Map map = new HashMap();
         try {
             PaymentHistory payt = paymentRepo.getbyID(idpayt);
@@ -53,7 +53,7 @@ public class TransaksiPaymentImple implements TransaksiService {
     }
 
     @Override
-    public Map updateStatus(Transaksi transaksi, Long iduser, Long idpayt) {
+    public Map updateStatus(Transaksi transaksi, Long idpayt) {
         Map map = new HashMap();
         try {
             PaymentHistory payt = paymentRepo.getbyID(idpayt);
