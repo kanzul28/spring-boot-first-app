@@ -28,7 +28,7 @@ public class PaymentHistory {
     private String bukti_pembayaran;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "payment_history", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paymentHistory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transaksi> transaksi;
 
 

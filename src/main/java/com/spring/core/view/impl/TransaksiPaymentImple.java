@@ -9,9 +9,12 @@ import com.spring.core.repository.TransaksiRepo;
 import com.spring.core.repository.UsersRepo;
 import com.spring.core.view.TransaksiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Status;
 import javax.transaction.Transactional;
+import java.awt.print.Pageable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,16 +32,12 @@ public class TransaksiPaymentImple implements TransaksiService {
 
 
     @Override
-    public Map save(Transaksi transaksi, Long idpayt) {
+    public Map save(Transaksi transaksi) {
         Map map = new HashMap();
         try {
-            PaymentHistory payt = paymentRepo.getbyID(idpayt);
-            transaksi.setPaymentHistory(payt);
+            Transaksi save = transaksiRepo.save(transaksi);
 //            Users users = userRepo.getbyID(iduser);
 //            Users users = userRepo.save(transaksi.getUsers())
-            Transaksi obj = transaksiRepo.save(transaksi);
-            Transaksi save = transaksiRepo.save(obj);
-
             map.put("data", save);
             map.put("code", "200");
             map.put("status", "success");
@@ -49,41 +48,38 @@ public class TransaksiPaymentImple implements TransaksiService {
             return map;
         }
 
-
     }
 
     @Override
-    public Map updateStatus(Transaksi transaksi, Long idpayt) {
+    public Map updateStatus(Transaksi transaksi) {
         Map map = new HashMap();
         try {
-            PaymentHistory payt = paymentRepo.getbyID(idpayt);
-            Transaksi obj = transaksiRepo.getByID(transaksi.getId());
-
-            if(obj == null ){
-                map.put("statusCode", "404");
-                map.put("statusMessage", "Data id tidak ditemukan");
-                return map;
-            }
+            Transaksi update = transaksiRepo.getbyID(transaksi.getId());
+            update.setStatus(transaksi.getStatus());
+            Transaksi doSave = transaksiRepo.save(update);
 
 //            obj.setTenor(transaksi.getTenor());
 //            obj.setTotal_pinjaman(transaksi.getTotal_pinjaman());
 //            obj.setBunga_persen(transaksi.getBunga_persen());
-            obj.setStatus("Lunas");
-            obj.setPaymentHistory(payt);
-            transaksiRepo.save(obj);
-
-            map.put("data", obj);
-            map.put("statusCode", "200");
-            map.put("statusMessage", "Update Sukses");
-            return map;
+            map.put("data", doSave);
+            map.put("code", "200");
+            map.put("status", "Update Sukses");
 
         } catch (Exception e) {
             e.printStackTrace();
             map.put("statusCode", "500");
-            map.put("statusMessage", e);
+            map.put("statusMessage", "failed");
             return map;
         }
+        return map;
     }
+
+
+    @Override
+    public Page<Status> findByStatus(String status, Pageable pageable) {
+        return null;
+    }
+
 
 
 

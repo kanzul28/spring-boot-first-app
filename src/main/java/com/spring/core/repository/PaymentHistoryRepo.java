@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface PaymentHistoryRepo extends PagingAndSortingRepository<PaymentHistory, Long> {
-    @Query("select c from Supplier c")
+    @Query("select c from PaymentHistory c")
     public List<PaymentHistory> getList();
 
-    @Query("select c from Supplier c WHERE c.id = :id")
+    @Query("select c from PaymentHistory c WHERE c.id = :id")
     public PaymentHistory getbyID(@Param("id") Long id);
 
 
