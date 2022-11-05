@@ -51,10 +51,13 @@ public class TransaksiPaymentImple implements TransaksiService {
     }
 
     @Override
-    public Map updateStatus(Transaksi transaksi) {
+    public Map updateStatus(Transaksi transaksi, Long id) {
         Map map = new HashMap();
         try {
-            Transaksi update = transaksiRepo.getbyID(transaksi.getId());
+            Transaksi update = transaksiRepo.getbyID(id);
+            update.setTenor(transaksi.getTenor());
+            update.setTotal_pinjaman(transaksi.getTotal_pinjaman());
+            update.setBunga_persen(transaksi.getBunga_persen());
             update.setStatus(transaksi.getStatus());
             Transaksi doSave = transaksiRepo.save(update);
 

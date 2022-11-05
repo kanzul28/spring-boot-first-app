@@ -1,6 +1,7 @@
 package com.spring.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Users {
     private List<Transaksi> transaksi;
 
     @OneToOne(mappedBy = "users")
+    @JsonManagedReference
     private UserDetail user_detail;
 
 

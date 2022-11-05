@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface TransaksiService {
     public Map save(Transaksi transaksi);
-    public Map updateStatus(Transaksi transaksi);
+    public Map updateStatus(Transaksi transaksi, Long id);
 
     Page<Status> findByStatus(String status, Pageable pageable);
 

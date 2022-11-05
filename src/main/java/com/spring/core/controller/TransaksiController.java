@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/transaksi/")
+@RequestMapping("/v1/transaksi")
 
 public class TransaksiController {
 
@@ -39,9 +39,9 @@ public class TransaksiController {
         return new ResponseEntity<Map>(save, HttpStatus.OK);
     }
 
-    @PutMapping("")
-    public ResponseEntity<Map> update(@RequestBody Transaksi objModel ) {
-        Map update = servis.updateStatus(objModel);
+    @PutMapping("/{id}")
+    public ResponseEntity<Map> update(@RequestBody Transaksi objModel, @PathVariable("id") Long id ) {
+        Map update = servis.updateStatus(objModel,id);
         return new ResponseEntity<Map>(update, HttpStatus.OK);
     }
 
@@ -49,6 +49,15 @@ public class TransaksiController {
     public ResponseEntity<Map>  getList() {
         Map map = new HashMap();
         map.put("data",transaksiRepo.findAll());
+        map.put("code", "200");
+        map.put("status", "success");
+        return new ResponseEntity<Map>(map, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map>  getListById(@PathVariable("id") Long id) {
+        Map map = new HashMap();
+        map.put("data",transaksiRepo.findById(id));
         map.put("code", "200");
         map.put("status", "success");
         return new ResponseEntity<Map>(map, HttpStatus.OK);
